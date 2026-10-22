@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
+    <header>
+        <button name="action_asignar" type="object"
+        string="Asignar" invisible="estado != 'disponible'"/>
+        <button name="action_liberar" type="object"
+        string="Liberar" invisible="estado != 'asignado'"/>
+        <field name="estado" widget="statusbar"
+        statusbar_visible="disponible,asignado,averiado,baja"
+        readonly="1"/>
+    </header>
 
     <!-- Vista de listado -->
     <record id="view_equipo_list" model="ir.ui.view">
@@ -15,6 +24,11 @@
                 <field name="responsable_id"/>
                 <field name="precio"/>
                 <field name="activo"/>
+                <field name="estado" widget="badge"
+                decoration-success="estado == 'disponible'"
+                decoration-info="estado == 'asignado'"
+                decoration-warning="estado == 'averiado'"
+                decoration-danger="estado == 'baja'"/>
             </list>
         </field>
     </record>

@@ -22,6 +22,17 @@ class Equipo (models.Model):
         ondelete='set null',
         help='Usuario interno encargado del equipo.'
     )
+    estado = fields.Selection(
+        selection=[
+            ('disponible', 'Disponible'),
+            ('asignado', 'Asignado'),
+            ('averiado', 'Averiado'),
+            ('baja', 'Baja'),
+        ],
+        string='Estado operativo',
+        required=True,
+        default='disponible',
+    )
     
 
     name = fields.Char(
@@ -50,3 +61,12 @@ class Equipo (models.Model):
         string="Activo",
         default=True
     )
+
+    def action_asignar(self):
+        for equipo in self:
+            if not equipo.responsable_id:
+                raise UserError('Selecciona un responsable antes de asignar el equipo.')
+            if equipo.estado != 'disponible':
+                raise UserError('Solo se puede asignar un equipo disponible.')
+            equipo.write({'estado': 'asignado'})
+        return True
