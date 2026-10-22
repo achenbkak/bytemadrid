@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Vista de listado -->
+    <record id="view_equipo_list" model="ir.ui.view">
+        <field name="name">bytemadrid.equipo.list</field>
+        <field name="model">bytemadrid.equipo</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="fabricante"/>
+                <field name="modelo"/>
+                <field name="numero_serie"/>
+                <field name="proveedor_id"/>
+                <field name="responsable_id"/>
+                <field name="precio"/>
+                <field name="activo"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Vista de formulario -->
+    <record id="view_equipo_form" model="ir.ui.view">
+        <field name="name">bytemadrid.equipo.form</field>
+        <field name="model">bytemadrid.equipo</field>
+        <field name="arch" type="xml">
+            <form string="Equipo informático">
+                <sheet>
+                    <group string = "Identificación">
+                        <field name="name"/>
+                        <field name="fabricante"/>
+                        <field name="modelo"/>
+                        <field name="numero_serie"/>
+                    </group>
+                    <group string = "Gestión y relaciones">
+                        <field name="proveedor_id"/>
+                        <field name="responsable_id"/>
+                        <field name="precio"/>
+                        <field name="activo"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Acción -->
+    <record id="action_equipos" model="ir.actions.act_window">
+        <field name="name">Equipos informáticos</field>
+        <field name="res_model">bytemadrid.equipo</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Menús -->
+    <menuitem
+        id="menu_bytemadrid"
+        name="ByteMadrid"
+        sequence="10"
+    />
+
+    <menuitem
+        id="menu_equipos"
+        name="Equipos"
+        parent="menu_bytemadrid"
+        action="action_equipos"
+        sequence="10"
+    />
+
+</odoo>
